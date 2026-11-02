@@ -1,0 +1,83 @@
+{
+  "version": "0.1.0-alpha.1",
+  "python_package_version": "0.1.0a1",
+  "classification": "EXPERIMENTAL_SOURCE_ALPHA",
+  "manifest_excludes_self": true,
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 90,
+      "sha256": "4c6571168f0f01020d34b75d5f594b0b625ffe3df07950f5c94f0031dbb342a6"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 1085,
+      "sha256": "1a607ae79bc54469db3b81660683a18defeeee56d3fce6f8a8082a47c448943c"
+    },
+    {
+      "path": "LIMITATIONS.md",
+      "bytes": 2408,
+      "sha256": "1a8799da0cd61adf42ba32c5237354a077c27777984bbcce226ed6b00be3347d"
+    },
+    {
+      "path": "PROVENANCE.md",
+      "bytes": 2186,
+      "sha256": "3f1105e1b0cecfb5c9dcdf3434383f29bad08cf48f062a57046fe68b77ba42e2"
+    },
+    {
+      "path": "README.md",
+      "bytes": 5144,
+      "sha256": "e62b2ad10cde4626575f857fab0590d0fd35d919417701873b80fda8f334eaef"
+    },
+    {
+      "path": "SECURITY.md",
+      "bytes": 2865,
+      "sha256": "ddfa043edc3c24c5e6db6fe71f72dccd7b1d54ed4daa6653aabdd9bba1fe757c"
+    },
+    {
+      "path": "TEST_RESULTS.md",
+      "bytes": 3774,
+      "sha256": "1a5adaf5c5a5d6770ece57a2474ff289940d4e0c81efac8230eeac2dc7abe7fc"
+    },
+    {
+      "path": "examples/SafeMacDemo.swift",
+      "bytes": 1347,
+      "sha256": "c42d77ac382d253e3580838d6b6a05cd1fffc346161816cb9cc178a2402f6e08"
+    },
+    {
+      "path": "native/Native.swift",
+      "bytes": 13776,
+      "sha256": "d7daf3e225baaf79f367e8bc579839bef17b7965fd9f339139fa6e987579958f"
+    },
+    {
+      "path": "safe_mac_control/__init__.py",
+      "bytes": 98,
+      "sha256": "a12bc6400ecfc5f095888f6662f8eb02493e1f7fe82d7077674169242d038010"
+    },
+    {
+      "path": "safe_mac_control/__main__.py",
+      "bytes": 3871,
+      "sha256": "8602bd4f503c04a594ad2e73fca961c1c419ee46229b9996a9353ad15553b128"
+    },
+    {
+      "path": "safe_mac_control/core.py",
+      "bytes": 8006,
+      "sha256": "2db3e7a335d3866e6e57d066e5d1054fb9dd20e34939efb99d2e0a0406ae5c50"
+    },
+    {
+      "path": "tests/test_controls.py",
+      "bytes": 7350,
+      "sha256": "6cfc8014a3ab9f68a9414e8deddb28464646a9d7b471d7a503e691c42257f108"
+    },
+    {
+      "path": "tools/build_native.py",
+      "bytes": 1463,
+      "sha256": "79cd695aa470bb553997aea4191f7ce4c1a66173d96ca38a8479b0021da2456e"
+    },
+    {
+      "path": "tools/demo_request.py",
+      "bytes": 1150,
+      "sha256": "a8da58c7821c3ce01f02f110aca22b490a14491f71e8c0e8ad6b5aaa6d21813b"
+    }
+  ]
+}

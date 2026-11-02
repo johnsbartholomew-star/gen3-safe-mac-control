@@ -1,0 +1,7 @@
+build/
+__pycache__/
+*.pyc
+*.egg-info/
+demo-snapshot.json
+demo-request.json
+demo-receipts/

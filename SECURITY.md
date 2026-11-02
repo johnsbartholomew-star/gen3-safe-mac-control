@@ -1,0 +1,14 @@
+# Security and permissions
+
+- The package supports only Calculator at its fixed system path and the supplied demo at its fixed local build path. Exact running application identity and a unique window title are required. It does not inspect other app windows.
+- Press targets must be unique, enabled `AXButton` elements that advertise AXPress. Only the demo Increment control and Calculator digit buttons are allowed. Calculator support is not yet natively qualified for this candidate.
+- Editable and secure fields are redacted before value/title/description reads and are never action or postcondition targets. They are not traversed. The program reads display values from noneditable static text in the selected app, which may still be personal data; keep snapshots and receipts private.
+- Incomplete tree traversal, inaccessible attributes, ambiguity, changed fingerprints or process identity, unexpected focus, stale snapshots and inaccessible postconditions stop the operation. No coordinate/mouse fallback exists.
+- The helper reads macOS Accessibility trust; it never grants it. No TCC database, SIP setting, Full Disk Access request, user credentials, private service or remote provider is involved.
+- Exact request receipts protect the normal command from concurrent and repeated dispatch with the same ID. A crash after the intent is recorded leaves an unresolved attempt. Do not remove receipts to force a replay.
+- This is a trusted local-user tool, **not an adversarial sandbox or authentication service**. The same user can modify source, binaries, receipts and app contents or call the helper directly. A bundle ID/path is not a cryptographic publisher verification. Keep the source and build directory under your control.
+- Inspection and action are separate macOS API calls, not an atomic transaction. State can change after the last check. Postcondition verification detects some changes; it cannot guarantee no intervening action by the user or another program.
+- The wrapper has a 12-second child timeout, the helper has an eight-second work budget and bounded AX messaging/tree traversal. These are software bounds, not hard OS resource or effect guarantees. An outer timeout is UNKNOWN_EFFECT; no automatic restart follows.
+- Closing/removing the standalone source does not alter the original installed Gen3. Retain needed receipts and decide separately whether to withdraw user-granted Accessibility access.
+
+Report suspected vulnerabilities using [this repository's private vulnerability reporting](https://github.com/johnsbartholomew-star/gen3-safe-mac-control/security/advisories/new), under Security. Do not submit credentials, personal information, private application contents or raw UI snapshots through public issues. Preserve uncertain-action receipts locally and do not repeat an uncertain action merely to obtain a cleaner report.
