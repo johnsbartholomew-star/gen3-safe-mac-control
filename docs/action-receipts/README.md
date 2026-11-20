@@ -1,6 +1,17 @@
-# Action Receipts (proposal, not built)
+# Action Receipts (experimental, not yet run on a Mac)
 
-**Status:** design proposal only. No code in this folder. Nothing here is released, tested or supported.
+**Status:** an experimental first version is in `safe_mac_control/receipts.py`, with 19 offline tests in
+`tests/test_receipts.py`. It has **not** been run against a real Mac app: the Accessibility readings are
+tested only with a stand-in. Not released or supported, and not part of the `0.1.0-alpha.1` release or its `MANIFEST.json`.
+The planted-failure evaluation below has not been run.
+
+```sh
+python3 -m safe_mac_control.receipts begin --step S-001 --expect expect.json --receipts ./receipts
+#   ... the agent performs its action ...
+python3 -m safe_mac_control.receipts end   --step S-001 --receipts ./receipts
+```
+
+See `SPEC.md` for the expectation format and exact rules.
 
 ## The problem
 

@@ -1,4 +1,60 @@
-# Action Receipts: draft spec v0 (proposal, not built)
+# Action Receipts: spec v0 (experimental)
+
+## What is built, and what isn't
+
+| Part | State |
+|---|---|
+| Expectation checks, verdict rules, once-only step store, private receipt files, CLI | Built; 19 offline tests pass on Linux, Python 3.13 |
+| File and folder readings (level 2) | Built and tested with real files |
+| Generated-UI JSON readings, e.g. A2UI (level 1) | Built; tested with a hand-written JSON file, not real A2UI agent output |
+| Accessibility readings (level 3) | Built on this package's existing read-only `inspect`; tested **only with a stand-in**. Limited to the apps `inspect` already allows (the demo app and Calculator) |
+| Screenshots | Not included in v0 |
+| Planted-failure evaluation | **Not run.** Needs a Mac |
+
+Each verdict rule was also checked by deliberately breaking it: five broken versions each made the tests fail.
+
+## Expectation format (as built)
+
+```json
+{
+  "checks": [
+    { "source": "file", "path": "~/Documents/report.docx", "change": "modified" },
+    { "source": "file_count", "dir": "~/Outbox", "pattern": "*.eml", "delta": 1 },
+    { "source": "a2ui", "path": "/tmp/agent-ui.json", "component": "status", "change": "equals", "value": "Saved" },
+    { "source": "ax", "bundle": "org.klara.SafeMacDemo", "window": "Safe Mac Demo",
+      "element": { "identifier": "safe-demo-count" }, "change": "changed" }
+  ],
+  "watch": [ { "source": "dir", "dir": "~/Documents" } ]
+}
+```
+
+- `file` changes: `modified` (content hash differs), `created`, `deleted`. A file whose time changed but whose content didn't is **not** counted as modified.
+- `file_count`: the number of entries matching `pattern` should change by `delta`. A multiple of `delta` (2, 3…) means `REPEATED`.
+- `a2ui` and `ax`: `changed`, or `equals` with a `value`.
+- `watch`: things that should **not** change. If the expected target didn't change but a watched item did, the verdict is `WRONG_TARGET`.
+- `"keep_text": true` on a check stores readable text for that check; otherwise only hashes are stored.
+
+## Verdict rules (as built, in order)
+
+1. Any reading unavailable → `UNKNOWN_EFFECT`.
+2. Any check changed, but not as expected → `UNKNOWN_EFFECT`.
+3. Nothing expected changed: a watched item changed → `WRONG_TARGET`; otherwise → `NO_CHANGE`.
+4. Some checks changed and some didn't → `UNKNOWN_EFFECT` (sources disagree).
+5. The expected change happened but a watched item also changed → `UNKNOWN_EFFECT`.
+6. A count changed by a multiple of what was expected → `REPEATED`.
+7. Fewer than two **different kinds** of source agree → `UNKNOWN_EFFECT`. Two file checks are one kind.
+8. Otherwise → `VERIFIED`.
+
+## Prior art (checked 2026-11-19, not exhaustive)
+
+- **[agent-desktop](https://flaviocopes.com/agent-desktop/)** (Vercel Labs, Apache-2.0; macOS, Windows, Linux) reads the accessibility tree and reports a delivery state such as "delivered_verified", a retry-safety flag and incomplete snapshots. This is the closest tool. Its "verified" refers to the control's state, not the underlying document: in the article's test, a text field was verified but the file on disk had not changed. Comparing against the document itself is the gap this design aims at. Contributing the idea there may be a better route than a separate tool.
+- **[VisCritic](https://arxiv.org/pdf/2606.24525)** compares before and after **screenshots** and outputs success, no-op, wrong-target, page-error or timeout. Similar verdicts, vision only.
+- **[Trailblaze](https://block.github.io/trailblaze/devlog/2026-06-30-assertwaypoint-tool-replaces-postcondition-field/)** (Block) checks step waypoints in UI tests, mainly on mobile.
+- **["Teach it to stop, not just to click"](https://arxiv.org/pdf/2607.17136)** uses a separate verifier for task completion; it notes duplicated actions as a failure but doesn't detect them directly.
+
+What did not appear in this check: requiring two **independent kinds** of source before saying "verified", with an explicit `REPEATED` verdict and a refusal to guess.
+
+## Original proposal (v0 design notes)
 
 ## Scope (v0)
 
